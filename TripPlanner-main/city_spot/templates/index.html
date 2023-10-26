@@ -1,0 +1,434 @@
+{% extends  'base.html' %}
+{% load static %}
+
+{% block content %}
+        <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <h1 class="text-white text-center">Discover. Explore. Travel</h1>
+
+                        <h6 class="text-center">platform for travellers around the world</h6>
+
+                        <form method="get" action="/search-spot/" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bi-search" id="basic-addon1">
+
+                                </span>
+
+                                <input name="search_include" type="search" class="form-control" id="keyword"
+                                    placeholder="City..." aria-label="Search">
+
+                                <button type="submit" class="form-control">Search</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="featured-section">
+            <div class="container">
+                <div class="row justify-content-between">
+
+                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                        <div class="custom-block bg-white shadow-lg" style="background-image: url('/static/images/index-image/shimla.jpg')">
+                            <a href="/search-spot/?search_include=shimla">
+                                <div class="d-flex">
+                                    <div>
+                                        <h5 class="mb-2">Shimla,<br> Himachal</h5>
+
+                                    </div>
+
+                                    <span class="badge bg-design rounded-pill ms-auto">4</span>
+                                </div>
+
+
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                        <div class="custom-block bg-white shadow-lg" style="background-image: url('/static/images/index-image/nanital.jpg'); background-position: center;">
+                            <a href="/search-spot/?search_include=Nainital">
+                                <div class="d-flex mb-4">
+                                    <div>
+                                        <h5 class="mb-2">Nainital,<br> Uttarakhand</h5>
+
+                                    </div>
+
+                                    <span class="badge bg-design rounded-pill ms-auto">5</span>
+                                </div>
+
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                        <div class="custom-block bg-white shadow-lg" style="background-image: url('/static/images/index-image/uttarkashi.jpg'); height: 420px;  ">
+                            <a href="/search-spot/?search_include=Uttarkashi">
+                                <div class="d-flex mb-4">
+                                    <div>
+                                        <h5 class="mb-2">Uttarkashi,<br> Uttarakhand</h5>
+
+                                    </div>
+
+                                    <span class="badge bg-design rounded-pill ms-auto">3</span>
+                                </div>
+
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="explore-section section-padding" id="section_2">
+            <div class="container">
+
+                <div class="col-12 text-center">
+                    <h2 class="mb-4">Browse Spots</h1>
+                </div>
+
+            </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="design-tab" data-bs-toggle="tab"
+                                data-bs-target="#design-tab-pane" type="button" role="tab"
+                                aria-controls="design-tab-pane" aria-selected="true">Temples</button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="marketing-tab" data-bs-toggle="tab"
+                                data-bs-target="#marketing-tab-pane" type="button" role="tab"
+                                aria-controls="marketing-tab-pane" aria-selected="false">Shoppings</button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="finance-tab" data-bs-toggle="tab"
+                                data-bs-target="#finance-tab-pane" type="button" role="tab"
+                                aria-controls="finance-tab-pane" aria-selected="false">Waterfalls</button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="music-tab" data-bs-toggle="tab"
+                                data-bs-target="#music-tab-pane" type="button" role="tab" aria-controls="music-tab-pane"
+                                aria-selected="false">Lakes</button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="education-tab" data-bs-toggle="tab"
+                                data-bs-target="#education-tab-pane" type="button" role="tab"
+                                aria-controls="education-tab-pane" aria-selected="false">Shelters</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel"
+                                aria-labelledby="design-tab" tabindex="0">
+                                <div class="row">
+                                    {% for temple in temples %}
+                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                        <div class="custom-block bg-white shadow-lg">
+                                            <a href="/spot/{{temple.slug}}/">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">{{temple.name}}</h5>
+                                                        <p class="mb-0">{{temple.city}}, {{temple.state}}</p>
+                                                    </div>
+
+                                                    <span class="badge rounded-pill ms-auto">&nbsp;</span>
+                                                </div>
+
+                                                <img src="{{temple.main_image.url}}"
+                                                    class="custom-block-image img-fluid" height="300" width="200" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="marketing-tab-pane" role="tabpanel"
+                                aria-labelledby="marketing-tab" tabindex="0">
+                                <div class="row">
+                                    {% for shop in shopping %}
+                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                        <div class="custom-block bg-white shadow-lg">
+                                            <a href="/spot/{{shop.slug}}/">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">{{shop.name}}</h5>
+                                                        <p class="mb-0">{{shop.city}}, {{shop.state}}</p>
+                                                    </div>
+
+                                                    <span class="badge rounded-pill ms-auto">&nbsp;</span>
+                                                </div>
+
+                                                <img src="{{shop.main_image.url}}"
+                                                    class="custom-block-image img-fluid" height="300" width="200" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="finance-tab-pane" role="tabpanel"
+                                aria-labelledby="finance-tab" tabindex="0">
+                                <div class="row">
+                                    {% for waterfall in waterfalls %}
+                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                        <div class="custom-block bg-white shadow-lg">
+                                            <a href="/spot/{{waterfall.slug}}/">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">{{waterfall.name}}</h5>
+                                                        <p class="mb-0">{{waterfall.city}}, {{waterfall.state}}</p>
+                                                    </div>
+
+                                                    <span class="badge rounded-pill ms-auto">&nbsp;</span>
+                                                </div>
+
+                                                <img src="{{waterfall.main_image.url}}"
+                                                    class="custom-block-image img-fluid" height="300" width="200" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="music-tab-pane" role="tabpanel" aria-labelledby="music-tab"
+                                tabindex="0">
+                                <div class="row">
+                                    {% for lake in lakes %}
+                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                        <div class="custom-block bg-white shadow-lg">
+                                            <a href="/spot/{{lake.slug}}/">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">{{lake.name}}</h5>
+                                                        <p class="mb-0">{{lake.city}}, {{lake.state}}</p>
+                                                    </div>
+
+                                                    <span class="badge rounded-pill ms-auto">&nbsp;</span>
+                                                </div>
+
+                                                <img src="{{lake.main_image.url}}"
+                                                    class="custom-block-image img-fluid" height="300" width="200" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="education-tab-pane" role="tabpanel"
+                                aria-labelledby="education-tab" tabindex="0">
+                                <div class="row">
+                                    {% for shelter in shelters %}
+                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                        <div class="custom-block bg-white shadow-lg">
+                                            <a href="/spot/{{shelter.slug}}/">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">{{shelter.name}}</h5>
+                                                        <p class="mb-0">{{shelter.city}}, {{shelter.state}}</p>
+                                                    </div>
+
+                                                    <span class="badge rounded-pill ms-auto">&nbsp;</span>
+                                                </div>
+
+                                                <img src="{{shelter.main_image.url}}"
+                                                    class="custom-block-image img-fluid" height="300" width="200" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </section>
+
+
+        <section class="timeline-section section-padding" id="section_3">
+            <div class="section-overlay"></div>
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12 text-center">
+                        <h2 class="text-white mb-4">How does it work?</h1>
+                    </div>
+
+                    <div class="col-lg-10 col-12 mx-auto">
+                        <div class="timeline-container">
+                            <ul class="vertical-scrollable-timeline" id="vertical-scrollable-timeline">
+                                <div class="list-progress">
+                                    <div class="inner"></div>
+                                </div>
+
+                                <li>
+                                    <h4 class="text-white mb-3">Search spots in your favorite City</h4>
+
+                                    <p class="text-white">Searching for spots in your favorite city? Look no further! We've got you covered with a wide range of options to explore. From iconic landmarks to hidden gems, there's something for everyone.
+                                    </p>
+
+                                    <div class="icon-holder">
+                                        <i class="bi-search"></i>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <h4 class="text-white mb-3">Add your spots to your trip</h4>
+
+                                    <p class="text-white">As you find spots that you want to include in your trip, add them to your checklist. Write down the name of the spot, its address, and any other relevant details that you may need during your visit</p>
+
+                                    <div class="icon-holder">
+                                        <i class="bi-bookmark"></i>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <h4 class="text-white mb-3">Explore &amp; Enjoy</h4>
+
+                                    <p class="text-white">Traveling is a wonderful way to explore new places, immerse yourself in different cultures, and create unforgettable memories. Whether you're an adventurous soul seeking thrilling experiences or simply looking to relax and unwind, travel offers something for everyone. </p>
+
+                                    <div class="icon-holder">
+                                        <i class="bi-book"></i>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        {% comment %} <section class="faq-section section-padding" id="section_4">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-12">
+                        <h2 class="mb-4">Frequently Asked Questions</h2>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-lg-5 col-12">
+                        <img src="{% static 'images/faq_graphic.jpg'%}" class="img-fluid" alt="FAQs">
+                    </div>
+
+                    <div class="col-lg-6 col-12 m-auto">
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        What is TravelBee?
+                                    </button>
+                                </h2>
+
+                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        Topic Listing is free Bootstrap 5 CSS template. <strong>You are not allowed to
+                                            redistribute this template</strong> on any other template collection website
+                                        without our permission. Please contact TemplateMo for more detail. Thank you.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        How to find a spot?
+                                    </button>
+                                </h2>
+
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        You can search on Google with <strong>keywords</strong> such as templatemo
+                                        portfolio, templatemo one-page layouts, photography, digital marketing, etc.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        Does it need to paid?
+                                    </button>
+                                </h2>
+
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        You can modify any of this with custom CSS or overriding our default variables.
+                                        It's also worth noting that just about any HTML can go within the
+                                        <code>.accordion-body</code>, though the transition does limit overflow.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section> {% endcomment %}
+
+
+        {% comment %} <section class="contact-section section-padding section-bg" id="section_5">
+            <div class="container">
+                <div class="row justify-content-center">
+
+                    <div class="col-lg-5 col-12 mx-auto mt-5 mt-lg-0">
+                        <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56120.00901351875!2d77.45539730012078!3d28.464468197936394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cc1ddc0000001%3A0xfc29bf57c9c17cf1!2sGNIOT%20Group%20of%20Institutions!5e0!3m2!1sen!2sin!4v1695870795959!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                        <h5 class="mt-4 mb-2">Students of GNIOT</h5>
+
+                        <p>Greater Noida, Uttar Pradesh, India</p>
+                    </div>
+
+                    <div class="col-lg-5 col-12 subscribe-form-wrap d-flex justify-content-center align-items-center">
+                        <form class="custom-form subscribe-form" action="#" method="post" role="form">
+                            <h4 class="mb-4">Get in Contact with Us!</h4>
+
+                            <input type="email" name="subscribe-email" id="subscribe-email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Enter your email" required="">
+
+                            <div class="col-lg-12 col-12">
+                                <button type="submit" class="form-control">Send</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section> {% endcomment %}
+{% endblock content %}
