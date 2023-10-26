@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load app_tags %}
+
+{% block content %}
+            <header class="site-header d-flex flex-column justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-5 col-12">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">TravelBee</a></li>
+
+                                    <li class="breadcrumb-item active" aria-current="page">Search</li>
+                                </ol>
+                            </nav>
+
+                            <h2 class="text-white">
+                                {% if search_include %}
+                                {{search_include|capfirst}}
+                                {% else %}
+                                All Spots
+                                {% endif %}
+                            </h2>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+
+
+            <section class="section-padding section-bg">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12 text-center">
+                            <h3 class="mb-4">Popular Spots</h3>
+                        </div>
+
+                        <div class="col-lg-8 col-12 mt-3 mx-auto">
+                            {% for spot in spots %}
+                            <div class="custom-block custom-block-topics-listing bg-white shadow-lg mb-5">
+                                <div class="d-flex">
+                                    <img src="{{spot.main_image.url}}" class="custom-block-image img-fluid" alt="">
+
+                                    <div class="custom-block-topics-listing-info d-flex">
+                                        <div>
+                                            <h5 class="mb-2">{{spot.name}}</h5>
+
+                                            <p class="mb-0">{{spot.description|slice:100}}..</p>
+
+                                            <a href="/spot/{{spot.slug}}/" class="btn custom-btn mt-3 mt-lg-4">Learn More</a>
+                                            {% comment %} <button type="button" class="btn custom-btn mt-3 mt-lg-4 js-add-to-trip" data-bs-toggle="modal" data-bs-target="#exampleModal" data-spot-id="{{spot.spot_id}}">
+                                                Add to Trip
+                                            </button> {% endcomment %}
+                                        </div>
+
+                                        <span class="badge bg-design rounded-pill ms-auto category-badge">{{spot.spot_type}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-lg-12 col-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center mb-0">
+                                    
+                                    <li class="page-item">
+                                        {% if spots.has_previous %}
+                                        <a class="page-link" href="?page={{spots.previous_page_number}}" aria-label="Previous">
+                                            <span aria-hidden="true">Prev</span>
+                                        </a>
+                                        {% endif %}
+                                    </li>
+                                   
+
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="#">{{spots.number}}</a>
+                                    </li>
+                                    
+                                    <li class="page-item">
+                                        {% if spots.has_next %}
+                                        <a class="page-link" href="?page={{spots.next_page_number}}" aria-label="Next">
+                                            <span aria-hidden="true">Next</span>
+                                        </a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add To Trip</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ol class="list-group list-group-numbered">
+                            
+                            {% if trips %}
+                                {% for trip in trips.all %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-start list-group-item-action js-modal-content">
+                                    <div class="ms-2 me-auto js-trip-detail js-trip-item" data-trip-id="{{trip.trip_id}}">
+                                        <div class="fw-bold">{{trip.title}}</div>
+                                        {{trip.date_created}}
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">{{trip.spots|count_many}}</span>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="text-center js-modal-content">You haven't created any trips <br>
+                                    
+                                </li>
+
+                            {% endif%}
+                            <button type="button" class="btn custom-btn mt-3 mt-lg-4 js-create-trip">
+                                Create New Trip
+                            </button>
+                        </ol>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            
+{% endblock content %}
+
+
+{% block customscript %}
+
+<script src="{% static 'js/create-trip.js' %}" ></script>
+
+{% endblock customscript%}

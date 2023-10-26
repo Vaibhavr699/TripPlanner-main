@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load app_tags %}
+
+{% block content %}
+            <header class="site-header d-flex flex-column justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center">
+
+                        <div class="col-lg-5 col-12 mb-5">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">{{spot.city}}</a></li>
+
+                                    <li class="breadcrumb-item active" aria-current="page">{{spot.spot_type}}</li>
+                                </ol>
+                            </nav>
+
+                            <h2 class="text-white">{{spot.name}},<br>{{spot.city}}</h2>
+
+                            <div class="d-flex align-items-center mt-5">
+                                <a class="btn custom-btn custom-border-btn smoothscroll me-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Add To Trip</a>
+                                
+                                <a href="#top" class="custom-icon bi-bookmark smoothscroll"></a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-12">
+                            <div class="topics-detail-block bg-white shadow-lg">
+                                <img src="{{spot.main_image.url}}" class="topics-detail-block-image img-fluid">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+
+
+            <section class="topics-detail-section section-padding" id="topics-detail">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-8 col-12 m-auto">
+                            <h3 class="mb-4">{{spot.name}}</h3>
+                            <p>
+                            {{spot.description}}
+                            </p>
+                            <div class="text-center">
+                                <blockquote class="text-center">
+                                    Hightlights of {{spot.name}}
+                                </blockquote>
+                            </div>  
+
+                            <div class="row my-4">
+                                
+                                    {% for gal in spot.gallery.all %}
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <img src="{{gal.image.url}}" class="topics-detail-block-image img-fluid" style="height: 280px !important;">
+                                    </div>
+                                    {% endfor %}
+                               
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="section-padding section-bg">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+                        <div class="col-lg-5 col-12 mx-auto mt-5 mt-lg-0">
+                            <iframe class="google-map" src="{{spot.location_url}}" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                            <h5 class="mt-4 mb-2">Directions</h5>
+
+                            <p>{{spot.name}}, {{spot.city}}, {{spot.state}}, India</p>
+                        </div>
+
+                        <div class="col-lg-5 col-12 subscribe-form-wrap d-flex justify-content-center align-items-center">
+                            <form class="custom-form subscribe-form" action="#" method="post" role="form">
+                                <h4 class="mb-4">Need More Info?</h4>
+
+                                <textarea type="email" name="subscribe-email" id="subscribe-email" pattern="[^ @]*@[^ @]*" class="form-control" required=""></textarea>
+
+                                <div class="col-lg-12 col-12">
+                                    <button type="submit" class="form-control">Send</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add To Trip</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ol class="list-group list-group-numbered">
+                            
+                            {% if trips %}
+                                {% for trip in trips.all %}
+                                <a href="/add-spot?spotId={{spot.spot_id}}&tripId={{trip.trip_id}}">
+                                    <li class="list-group-item d-flex justify-content-between align-items-start list-group-item-action js-modal-content">
+                                        
+                                            <div class="ms-2 me-auto js-trip-detail js-trip-item" data-trip-id="{{trip.trip_id}}">
+                                                <div class="fw-bold">{{trip.title}}</div>
+                                                {{trip.date_created}}
+                                            </div>
+                                            <span class="badge bg-primary rounded-pill">{{trip.spots|count_many}}</span>
+                                        
+                                    </li>
+                                </a>
+                                
+                                {% endfor %}
+                                <button type="button" class="btn custom-btn mt-3 mt-lg-4 js-create-trip" data-bs-toggle="modal" data-bs-target="#newTrip">
+                                    Create New Trip
+                                </button>
+                            {% else %}
+                                {% if user.is_authenticated %}
+                                <li class="text-center js-modal-content">You haven't created any trips</li>
+                                <button type="button" class="btn custom-btn mt-3 mt-lg-4 js-create-trip" data-bs-toggle="modal" data-bs-target="#newTrip">
+                                    Create New Trip
+                                </button>
+                                {% else %}
+                                <li class="text-center js-modal-content">You are not logged in please login </li>
+                                <button type="button" class="btn custom-btn mt-3 mt-lg-4 js-create-trip" data-bs-toggle="modal" data-bs-target="#newTrip">
+                                    <a href="/account/login" class="text-white">
+                                    Login
+                                    </a>
+                                </button>
+                                {% endif %}
+                            {% endif%}
+                            
+                        </ol>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="newTrip" tabindex="-1" aria-labelledby="newTripLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create New Trip</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="/create-trip/">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                              <label for="exampleInputEmail1" class="form-label">What will be the name of Your trip?</label>
+                              <input type="text" name="trip_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                              <input type="hidden" name="spot_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{spot.spot_id}}">
+                              <label for="exampleInputEmail1" class="form-label">Note (optional):</label>
+                              <textarea name="trip_note" class="form-control" aria-label="With textarea"></textarea>
+                            </div>
+                            <button type="submit" class="btn custom-btn js-create-trip" data-bs-toggle="modal" data-bs-target="#newTrip">
+                                Create New Trip
+                            </button>
+                          </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+{% endblock content %}
